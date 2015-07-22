@@ -56,17 +56,17 @@ function RandomizeTest(tstObject){
 		tstObject.choices[curInd] = tstObject.choices[randInd];
 		tstObject.answers[curInd] = tstObject.answers[randInd];
 		
-		//Set the random index to be the values of the highest unrandomized Index.
+		//Set the random index to be the values of the highest unrandomized index.
 		tstObject.questions[randInd] = tempQues;
 		tstObject.choices[randInd] = tempChoices;
 		tstObject.answers[randInd] = tempAnswers;
 	}
 	
 	
-	//RANDOMIZE ANSWER ORDER FOR EACH QUESTION
+	//ITERATE THROUGH EACH QUESTION ON THE TEST
 	for( var i = 0; i < tstObject.questions.length; i++ )
 	{
-		
+		//RANDOMIZE THE ANSWER OPTIONS AND ANSWERS FOR EACH QUESTION USING THE SAME METHODS AS THE QUESTION ORDER
 		curInd = tstObject.choices[i].length;
 		var tempOpt, tempAns;
 		
@@ -76,13 +76,15 @@ function RandomizeTest(tstObject){
 			randInd = Math.floor(Math.random() * curInd);
 			curInd--;
 			
-			//Assign all answers from the highest unrandomized index to temp variable for safekeeping.
+			//Assign all answer options and answers from the highest unrandomized index to temp variable for safekeeping.
 			tempOpt = tstObject.choices[i][curInd];
 			tempAns = tstObject.answers[i][curInd];
 			
+			//Swap the randomly indexed options and answers into the highest unrandomized slot.
 			tstObject.choices[i][curInd] = tstObject.choices[i][randInd];
 			tstObject.answers[i][curInd] = tstObject.answers[i][randInd];
 			
+			//Set the random index to be the values of the highest unrandomized index.
 			tstObject.choices[i][randInd] = tempOpt;
 			tstObject.answers[i][randInd] = tempAns;
 		}
