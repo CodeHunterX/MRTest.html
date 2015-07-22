@@ -35,7 +35,60 @@ RandomizeTest accepts and returns a Test object. The questions in the returned o
 The order of the choices within each question should also be randomized.
 */
 function RandomizeTest(tstObject){
+	//RANDOMIZE QUESTION ORDER
+	var curInd = tstObject.questions.length;  //Start with the last set of questions.
+	var tempQues, tempChoices, tempAnswers;   //Define Variables to hold each array.
+	var	randInd;							  //Define a random Index integer.
 	
+	while(curInd > 0)
+	{
+		//Choose a random lower with which to swap the highest unrandomized index.
+		randInd = Math.floor(Math.random() * curInd);
+		curInd--;
+		
+		//Assign all questions, choices, and answers from the highest unrandomized Index to temporary variables for safekeeping.
+		tempQues = tstObject.questions[curInd];
+		tempChoices = tstObject.choices[curInd];
+		tempAnswers = tstObject.answers[curInd];
+		
+		//Swap the randomly indexed questions into the highest unrandomized slot.
+		tstObject.questions[curInd] = tstObject.questions[randInd];
+		tstObject.choices[curInd] = tstObject.choices[randInd];
+		tstObject.answers[curInd] = tstObject.answers[randInd];
+		
+		//Set the random index to be the values of the highest unrandomized Index.
+		tstObject.questions[randInd] = tempQues;
+		tstObject.choices[randInd] = tempChoices;
+		tstObject.answers[randInd] = tempAnswers;
+	}
+	
+	
+	//RANDOMIZE ANSWER ORDER FOR EACH QUESTION
+	for( var i = 0; i < tstObject.questions.length; i++ )
+	{
+		
+		curInd = tstObject.choices[i].length;
+		var tempOpt, tempAns;
+		
+		while(curInd > 0)
+		{
+			//Choose new random number.
+			randInd = Math.floor(Math.random() * curInd);
+			curInd--;
+			
+			//Assign all answers from the highest unrandomized index to temp variable for safekeeping.
+			tempOpt = tstObject.choices[i][curInd];
+			tempAns = tstObject.answers[i][curInd];
+			
+			tstObject.choices[i][curInd] = tstObject.choices[i][randInd];
+			tstObject.answers[i][curInd] = tstObject.answers[i][randInd];
+			
+			tstObject.choices[i][randInd] = tempOpt;
+			tstObject.answers[i][randInd] = tempAns;
+		}
+		
+		
+	}
 	
 	
 	return tstObject;
